@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BladeWork — Barbearia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== BACKGROUND DECORATIONS ===== -->
+  <div class="bg-decor" aria-hidden="true">
+    <div class="bg-circle bg-circle-1"></div>
+    <div class="bg-circle bg-circle-2"></div>
+    <div class="bg-grain"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 3l6 9-6 9M18 3l-6 9 6 9"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">BladeWork</span>
+          <span class="logo-sub">Barbearia Premium</span>
+        </div>
+      </div>
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        Aceitando agendamentos
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <!-- LEFT: FORM -->
+    <section class="panel panel-form" aria-label="Formulário de agendamento">
+      <div class="panel-header">
+        <p class="panel-eyebrow">Reservar horário</p>
+        <h1 class="panel-title">Novo<br><em>Agendamento</em></h1>
+        <p class="panel-desc">Preencha os dados abaixo e garanta seu horário com nossos barbeiros especialistas.</p>
+      </div>
+
+      <form id="bookingForm" class="form" novalidate>
+
+        <!-- Nome -->
+        <div class="field" id="field-name">
+          <label class="label" for="clientName">Nome completo</label>
+          <div class="input-wrap">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0116 0v2"/></svg>
+            <input class="input" type="text" id="clientName" placeholder="Ex: João da Silva" autocomplete="name" />
+          </div>
+          <span class="field-error" id="err-name"></span>
+        </div>
+
+        <!-- Serviço -->
+        <div class="field" id="field-service">
+          <label class="label" for="serviceSelect">Serviço</label>
+          <div class="input-wrap select-wrap">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+            <select class="input select" id="serviceSelect">
+              <option value="">Escolha um serviço…</option>
+              <option value="Corte Clássico — R$ 45" data-price="45" data-dur="45min">✂️ Corte Clássico — R$ 45</option>
+              <option value="Barba Completa — R$ 35" data-price="35" data-dur="30min">🪒 Barba Completa — R$ 35</option>
+              <option value="Corte + Barba — R$ 70" data-price="70" data-dur="75min">✂️🪒 Corte + Barba — R$ 70</option>
+              <option value="Degradê — R$ 50" data-price="50" data-dur="50min">💈 Degradê — R$ 50</option>
+              <option value="Platinado / Coloração — R$ 120" data-price="120" data-dur="120min">🎨 Platinado / Coloração — R$ 120</option>
+              <option value="Hidratação Capilar — R$ 55" data-price="55" data-dur="60min">💧 Hidratação Capilar — R$ 55</option>
+              <option value="Sobrancelha — R$ 20" data-price="20" data-dur="20min">✨ Sobrancelha — R$ 20</option>
+            </select>
+            <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+          <span class="field-error" id="err-service"></span>
+        </div>
+
+        <!-- Barbeiro -->
+        <div class="field" id="field-barber">
+          <label class="label">Barbeiro</label>
+          <div class="barber-grid" id="barberGrid">
+            <button type="button" class="barber-card" data-barber="Carlos">
+              <div class="barber-avatar" style="background:#B8972A">C</div>
+              <div class="barber-info">
+                <span class="barber-name">Carlos</span>
+                <span class="barber-spec">Degradê & Corte</span>
+              </div>
+              <div class="barber-check">✓</div>
+            </button>
+            <button type="button" class="barber-card" data-barber="Diego">
+              <div class="barber-avatar" style="background:#2A7AB8">D</div>
+              <div class="barber-info">
+                <span class="barber-name">Diego</span>
+                <span class="barber-spec">Barba & Navalhada</span>
+              </div>
+              <div class="barber-check">✓</div>
+            </button>
+            <button type="button" class="barber-card" data-barber="Fábio">
+              <div class="barber-avatar" style="background:#2AB878">F</div>
+              <div class="barber-info">
+                <span class="barber-name">Fábio</span>
+                <span class="barber-spec">Coloração & Platinado</span>
+              </div>
+              <div class="barber-check">✓</div>
+            </button>
+          </div>
+          <span class="field-error" id="err-barber"></span>
+        </div>
+
+        <!-- Data -->
+        <div class="field" id="field-date">
+          <label class="label" for="dateInput">Data</label>
+          <div class="input-wrap">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <input class="input" type="date" id="dateInput" />
+          </div>
+          <span class="field-error" id="err-date"></span>
+        </div>
+
+        <!-- Horários -->
+        <div class="field" id="field-time">
+          <label class="label">Horário disponível</label>
+          <div class="time-grid" id="timeGrid">
+            <div class="time-placeholder">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              Selecione barbeiro e data primeiro
+            </div>
+          </div>
+          <span class="field-error" id="err-time"></span>
+        </div>
+
+        <!-- Resumo -->
+        <div class="summary-box" id="summaryBox" style="display:none">
+          <div class="summary-row"><span>Serviço</span><strong id="sum-service">—</strong></div>
+          <div class="summary-row"><span>Barbeiro</span><strong id="sum-barber">—</strong></div>
+          <div class="summary-row"><span>Data & Hora</span><strong id="sum-datetime">—</strong></div>
+          <div class="summary-row"><span>Duração</span><strong id="sum-dur">—</strong></div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">
+          <span class="btn-text">Confirmar Agendamento</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+      </form>
+    </section>
+
+    <!-- RIGHT: APPOINTMENTS -->
+    <section class="panel panel-list" aria-label="Lista de agendamentos">
+      <div class="panel-header">
+        <p class="panel-eyebrow">Agenda do dia</p>
+        <h2 class="panel-title">Agendamentos</h2>
+        <div class="list-controls">
+          <input class="search-input" type="text" id="searchInput" placeholder="🔍  Buscar cliente…" />
+          <select class="filter-select" id="filterBarber">
+            <option value="">Todos os barbeiros</option>
+            <option value="Carlos">Carlos</option>
+            <option value="Diego">Diego</option>
+            <option value="Fábio">Fábio</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="list-meta" id="listMeta">
+        <span id="listCount">0 agendamentos</span>
+        <button class="btn-clear-all" id="btnClearAll" style="display:none">Limpar todos</button>
+      </div>
+
+      <div class="appointments-list" id="appointmentsList">
+        <div class="list-empty" id="listEmpty">
+          <div class="empty-icon">📅</div>
+          <h3>Nenhum agendamento</h3>
+          <p>Os horários marcados aparecerão aqui.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- ===== MODAL CONFIRM ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Confirmar cancelamento">
+    <div class="modal">
+      <div class="modal-icon">🗑️</div>
+      <h3 class="modal-title">Cancelar agendamento?</h3>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-cancel" id="modalCancel">Manter</button>
+        <button class="modal-btn modal-btn-confirm" id="modalConfirm">Sim, cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
