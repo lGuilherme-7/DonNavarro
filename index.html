@@ -1,205 +1,826 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BladeWork — Barbearia</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Don Navarro  Barbearia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* =============================================
+   DON NAVARRO — BARBEARIA
+   Aesthetic: Dark luxury / Refined gold
+============================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:       #C9A96E;
+  --gold-light: #E8D4A8;
+  --gold-dim:   #7A5C2E;
+  --bg:         #0D0D0D;
+  --bg-2:       #141414;
+  --bg-3:       #1C1C1C;
+  --bg-4:       #242424;
+  --border:     rgba(201,169,110,.18);
+  --border-2:   rgba(201,169,110,.35);
+  --text:       #F0EBE0;
+  --text-2:     #9A9080;
+  --text-3:     #5C5550;
+  --red:        #E05252;
+  --green:      #52A887;
+  --radius:     10px;
+  --radius-lg:  16px;
+  --tr:         .2s cubic-bezier(.4,0,.2,1);
+  --shadow:     0 8px 32px rgba(0,0,0,.55);
+  --glow:       0 0 24px rgba(201,169,110,.15);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.4;
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  text-align:center;
+  padding:72px 24px 56px;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:-1px;left:50%;transform:translateX(-50%);
+  width:200px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero-ornament{
+  font-size:13px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--gold);font-family:'DM Mono',monospace;
+  margin-bottom:20px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.hero-ornament::before,.hero-ornament::after{
+  content:'';flex:1;max-width:60px;height:1px;background:var(--gold-dim);
+}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.6rem,7vw,5rem);
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1;
+  color:var(--text);
+  margin-bottom:10px;
+}
+.hero h1 span{color:var(--gold);}
+.hero p{
+  color:var(--text-2);
+  font-size:15px;font-weight:300;
+  letter-spacing:.04em;
+  max-width:340px;margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  margin-top:22px;
+  background:rgba(201,169,110,.08);
+  border:1px solid var(--border-2);
+  border-radius:99px;
+  padding:6px 16px;
+  font-size:12px;font-weight:500;
+  color:var(--gold-light);
+  letter-spacing:.05em;
+}
+.pulse{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+/* ── LAYOUT ── */
+.container{
+  max-width:1100px;margin:0 auto;
+  padding:48px 20px 80px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+  align-items:start;
+}
+@media(max-width:768px){.container{grid-template-columns:1fr;}}
+
+/* ── PANELS ── */
+.panel{
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  position:relative;
+}
+.panel::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.5;
+}
+.panel-head{
+  padding:22px 26px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;
+}
+.panel-icon{
+  width:36px;height:36px;
+  border-radius:8px;
+  background:rgba(201,169,110,.1);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:16px;
+  flex-shrink:0;
+}
+.panel-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;
+  color:var(--text);letter-spacing:-.01em;
+}
+.panel-sub{font-size:12px;color:var(--text-3);margin-top:2px;}
+.panel-body{padding:26px;}
+
+/* ── FORM ── */
+.field{margin-bottom:18px;}
+.field:last-of-type{margin-bottom:0;}
+.label{
+  display:block;
+  font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-2);margin-bottom:8px;
+}
+.input{
+  width:100%;
+  height:46px;
+  padding:0 14px;
+  background:var(--bg-3);
+  border:1.5px solid rgba(255,255,255,.07);
+  border-radius:var(--radius);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  color:var(--text);
+  outline:none;
+  transition:border-color var(--tr),box-shadow var(--tr),background var(--tr);
+  -webkit-appearance:none;
+}
+.input:hover{border-color:var(--border);}
+.input:focus{
+  border-color:var(--gold-dim);
+  box-shadow:0 0 0 3px rgba(201,169,110,.1);
+  background:var(--bg-4);
+}
+.input::placeholder{color:var(--text-3);}
+.input::-webkit-calendar-picker-indicator{filter:invert(.4);cursor:pointer;}
+
+/* Services grid */
+.services{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-bottom:18px;
+}
+.service-btn{
+  background:var(--bg-3);
+  border:1.5px solid rgba(255,255,255,.07);
+  border-radius:var(--radius);
+  padding:13px 10px;
+  cursor:pointer;
+  text-align:left;
+  transition:all var(--tr);
+  position:relative;
+  overflow:hidden;
+}
+.service-btn::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,169,110,.06),transparent);
+  opacity:0;transition:opacity var(--tr);
+}
+.service-btn:hover{border-color:var(--border);transform:translateY(-1px);}
+.service-btn:hover::after{opacity:1;}
+.service-btn.active{
+  border-color:var(--gold);
+  background:rgba(201,169,110,.06);
+  box-shadow:var(--glow);
+}
+.service-btn.active::after{opacity:1;}
+.svc-icon{font-size:18px;display:block;margin-bottom:5px;}
+.svc-name{font-size:13px;font-weight:600;color:var(--text);display:block;}
+.svc-price{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--gold);display:block;margin-top:2px;
+}
+.svc-time{font-size:10.5px;color:var(--text-3);}
+.svc-check{
+  position:absolute;top:9px;right:9px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:#000;
+  opacity:0;transform:scale(0);
+  transition:all var(--tr);
+}
+.service-btn.active .svc-check{opacity:1;transform:scale(1);}
+
+/* Timeslots */
+.slots-wrap{margin-bottom:18px;}
+.slots-label{
+  font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-2);margin-bottom:9px;display:block;
+}
+.slots{
+  display:flex;flex-wrap:wrap;gap:7px;
+}
+.slot{
+  padding:7px 13px;
+  background:var(--bg-3);
+  border:1.5px solid rgba(255,255,255,.07);
+  border-radius:7px;
+  font-family:'DM Mono',monospace;
+  font-size:12.5px;color:var(--text-2);
+  cursor:pointer;
+  transition:all var(--tr);
+  user-select:none;
+}
+.slot:hover:not(.slot-busy):not(.slot-selected){
+  border-color:var(--border);color:var(--text);
+}
+.slot-selected{
+  background:rgba(201,169,110,.1);
+  border-color:var(--gold);
+  color:var(--gold);
+  box-shadow:0 0 12px rgba(201,169,110,.12);
+}
+.slot-busy{
+  background:rgba(224,82,82,.04);
+  border-color:rgba(224,82,82,.2);
+  color:var(--text-3);
+  cursor:not-allowed;
+  text-decoration:line-through;
+  opacity:.5;
+}
+.slots-empty{
+  font-size:13px;color:var(--text-3);
+  padding:12px 0;
+  font-style:italic;
+}
+
+/* Submit */
+.btn-submit{
+  width:100%;
+  height:50px;
+  margin-top:22px;
+  background:linear-gradient(135deg,#C9A96E 0%,#A07840 100%);
+  border:none;
+  border-radius:var(--radius);
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:#0D0D0D;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform var(--tr),box-shadow var(--tr);
+  box-shadow:0 4px 20px rgba(201,169,110,.25);
+}
+.btn-submit::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity var(--tr);
+}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,169,110,.35);}
+.btn-submit:hover::before{opacity:1;}
+.btn-submit:active{transform:translateY(0);}
+.btn-submit:disabled{
+  opacity:.45;cursor:not-allowed;transform:none;
+  box-shadow:0 4px 20px rgba(201,169,110,.1);
+}
+
+/* ── APPOINTMENTS LIST ── */
+.appt-count{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--gold);
+  background:rgba(201,169,110,.1);
+  border:1px solid var(--border);
+  border-radius:99px;padding:3px 10px;
+  margin-left:auto;
+}
+
+.appt-empty{
+  padding:40px 20px;
+  text-align:center;
+}
+.appt-empty-icon{font-size:36px;margin-bottom:12px;opacity:.35;}
+.appt-empty p{font-size:13.5px;color:var(--text-3);}
+
+.appt-list{
+  display:flex;flex-direction:column;
+  gap:10px;
+  padding:20px 22px;
+  max-height:540px;overflow-y:auto;
+}
+.appt-list::-webkit-scrollbar{width:3px;}
+.appt-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+.appt-card{
+  background:var(--bg-3);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  display:flex;gap:14px;align-items:flex-start;
+  position:relative;overflow:hidden;
+  animation:cardIn .28s ease;
+  transition:border-color var(--tr),transform var(--tr);
+}
+@keyframes cardIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.appt-card:hover{border-color:var(--border);transform:translateX(2px);}
+.appt-card::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--gold),var(--gold-dim));
+  border-radius:3px 0 0 3px;
+}
+
+.appt-avatar{
+  width:38px;height:38px;
+  border-radius:8px;
+  background:linear-gradient(135deg,rgba(201,169,110,.2),rgba(201,169,110,.06));
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:15px;font-weight:700;color:var(--gold);
+  flex-shrink:0;
+}
+.appt-body{flex:1;min-width:0;}
+.appt-name{
+  font-size:14px;font-weight:600;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.appt-svc{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11.5px;color:var(--gold-light);
+  margin-top:3px;
+}
+.appt-meta{
+  display:flex;align-items:center;gap:10px;
+  margin-top:6px;flex-wrap:wrap;
+}
+.appt-tag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--text-2);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:5px;padding:2px 8px;
+}
+
+.btn-cancel{
+  width:30px;height:30px;
+  border-radius:7px;
+  border:1px solid rgba(224,82,82,.2);
+  background:rgba(224,82,82,.05);
+  color:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:13px;flex-shrink:0;
+  transition:all var(--tr);
+}
+.btn-cancel:hover{
+  background:rgba(224,82,82,.12);
+  border-color:var(--red);
+  transform:scale(1.05);
+}
+
+/* ── TOAST ── */
+.toast-wrap{
+  position:fixed;bottom:28px;right:24px;
+  z-index:999;
+  display:flex;flex-direction:column;gap:8px;
+  pointer-events:none;
+}
+.toast{
+  display:flex;align-items:center;gap:10px;
+  padding:13px 18px;
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  font-size:13.5px;font-weight:500;color:var(--text);
+  box-shadow:var(--shadow);
+  animation:toastIn .25s cubic-bezier(.34,1.56,.64,1);
+  max-width:310px;
+  border-left:3px solid transparent;
+}
+.toast.success{border-left-color:var(--green);}
+.toast.error{border-left-color:var(--red);}
+.toast.info{border-left-color:var(--gold);}
+.toast.out{animation:toastOut .2s ease forwards;}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateX(16px)}}
+.toast-em{font-size:16px;flex-shrink:0;}
+
+/* ── DIVIDER ── */
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* ── FOOTER ── */
+.foot{
+  text-align:center;padding:28px 20px;
+  border-top:1px solid var(--border);
+  font-size:12px;color:var(--text-3);
+  letter-spacing:.04em;
+}
+.foot span{color:var(--gold-dim);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:500px){
+  .services{grid-template-columns:1fr 1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .hero h1{font-size:2.2rem;}
+}
+</style>
 </head>
 <body>
 
-  <!-- ===== BACKGROUND DECORATIONS ===== -->
-  <div class="bg-decor" aria-hidden="true">
-    <div class="bg-circle bg-circle-1"></div>
-    <div class="bg-circle bg-circle-2"></div>
-    <div class="bg-grain"></div>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-ornament">Est. 2009</div>
+  <h1>Don <span>Navarro</span></h1>
+  <p>Barbearia clássica com técnica moderna. Agende agora.</p>
+  <div class="hero-badge">
+    <span class="pulse"></span>
+    Atendendo hoje
   </div>
+</header>
 
-  <!-- ===== HEADER ===== -->
-  <header class="header">
-    <div class="header-inner">
-      <div class="logo">
-        <div class="logo-mark">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M6 3l6 9-6 9M18 3l-6 9 6 9"/>
-          </svg>
-        </div>
-        <div class="logo-text">
-          <span class="logo-name">BladeWork</span>
-          <span class="logo-sub">Barbearia Premium</span>
-        </div>
-      </div>
-      <div class="header-badge">
-        <span class="badge-dot"></span>
-        Aceitando agendamentos
+<!-- MAIN -->
+<div class="container">
+
+  <!-- FORMULÁRIO -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-icon">✂</div>
+      <div>
+        <div class="panel-title">Novo Agendamento</div>
+        <div class="panel-sub">Preencha os dados abaixo</div>
       </div>
     </div>
-  </header>
+    <div class="panel-body">
 
-  <!-- ===== MAIN ===== -->
-  <main class="main">
-
-    <!-- LEFT: FORM -->
-    <section class="panel panel-form" aria-label="Formulário de agendamento">
-      <div class="panel-header">
-        <p class="panel-eyebrow">Reservar horário</p>
-        <h1 class="panel-title">Novo<br><em>Agendamento</em></h1>
-        <p class="panel-desc">Preencha os dados abaixo e garanta seu horário com nossos barbeiros especialistas.</p>
+      <!-- Nome -->
+      <div class="field">
+        <label class="label" for="clientName">Seu nome</label>
+        <input class="input" type="text" id="clientName" placeholder="Como prefere ser chamado?" autocomplete="off"/>
       </div>
 
-      <form id="bookingForm" class="form" novalidate>
+      <!-- Serviços -->
+      <div class="field">
+        <label class="label">Serviço</label>
+        <div class="services" id="servicesGrid"></div>
+      </div>
 
-        <!-- Nome -->
-        <div class="field" id="field-name">
-          <label class="label" for="clientName">Nome completo</label>
-          <div class="input-wrap">
-            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0116 0v2"/></svg>
-            <input class="input" type="text" id="clientName" placeholder="Ex: João da Silva" autocomplete="name" />
+      <!-- Data e Hora -->
+      <div class="field-row">
+        <div class="field">
+          <label class="label" for="apptDate">Data</label>
+          <input class="input" type="date" id="apptDate"/>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label class="label">Horário</label>
+          <div style="position:relative">
+            <input class="input" id="selectedTimeDisplay" placeholder="Selecione abaixo" readonly style="cursor:pointer;padding-right:30px"/>
+            <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:12px;pointer-events:none">▾</span>
           </div>
-          <span class="field-error" id="err-name"></span>
-        </div>
-
-        <!-- Serviço -->
-        <div class="field" id="field-service">
-          <label class="label" for="serviceSelect">Serviço</label>
-          <div class="input-wrap select-wrap">
-            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
-            <select class="input select" id="serviceSelect">
-              <option value="">Escolha um serviço…</option>
-              <option value="Corte Clássico — R$ 45" data-price="45" data-dur="45min">✂️ Corte Clássico — R$ 45</option>
-              <option value="Barba Completa — R$ 35" data-price="35" data-dur="30min">🪒 Barba Completa — R$ 35</option>
-              <option value="Corte + Barba — R$ 70" data-price="70" data-dur="75min">✂️🪒 Corte + Barba — R$ 70</option>
-              <option value="Degradê — R$ 50" data-price="50" data-dur="50min">💈 Degradê — R$ 50</option>
-              <option value="Platinado / Coloração — R$ 120" data-price="120" data-dur="120min">🎨 Platinado / Coloração — R$ 120</option>
-              <option value="Hidratação Capilar — R$ 55" data-price="55" data-dur="60min">💧 Hidratação Capilar — R$ 55</option>
-              <option value="Sobrancelha — R$ 20" data-price="20" data-dur="20min">✨ Sobrancelha — R$ 20</option>
-            </select>
-            <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </div>
-          <span class="field-error" id="err-service"></span>
-        </div>
-
-        <!-- Barbeiro -->
-        <div class="field" id="field-barber">
-          <label class="label">Barbeiro</label>
-          <div class="barber-grid" id="barberGrid">
-            <button type="button" class="barber-card" data-barber="Carlos">
-              <div class="barber-avatar" style="background:#B8972A">C</div>
-              <div class="barber-info">
-                <span class="barber-name">Carlos</span>
-                <span class="barber-spec">Degradê & Corte</span>
-              </div>
-              <div class="barber-check">✓</div>
-            </button>
-            <button type="button" class="barber-card" data-barber="Diego">
-              <div class="barber-avatar" style="background:#2A7AB8">D</div>
-              <div class="barber-info">
-                <span class="barber-name">Diego</span>
-                <span class="barber-spec">Barba & Navalhada</span>
-              </div>
-              <div class="barber-check">✓</div>
-            </button>
-            <button type="button" class="barber-card" data-barber="Fábio">
-              <div class="barber-avatar" style="background:#2AB878">F</div>
-              <div class="barber-info">
-                <span class="barber-name">Fábio</span>
-                <span class="barber-spec">Coloração & Platinado</span>
-              </div>
-              <div class="barber-check">✓</div>
-            </button>
-          </div>
-          <span class="field-error" id="err-barber"></span>
-        </div>
-
-        <!-- Data -->
-        <div class="field" id="field-date">
-          <label class="label" for="dateInput">Data</label>
-          <div class="input-wrap">
-            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <input class="input" type="date" id="dateInput" />
-          </div>
-          <span class="field-error" id="err-date"></span>
-        </div>
-
-        <!-- Horários -->
-        <div class="field" id="field-time">
-          <label class="label">Horário disponível</label>
-          <div class="time-grid" id="timeGrid">
-            <div class="time-placeholder">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              Selecione barbeiro e data primeiro
-            </div>
-          </div>
-          <span class="field-error" id="err-time"></span>
-        </div>
-
-        <!-- Resumo -->
-        <div class="summary-box" id="summaryBox" style="display:none">
-          <div class="summary-row"><span>Serviço</span><strong id="sum-service">—</strong></div>
-          <div class="summary-row"><span>Barbeiro</span><strong id="sum-barber">—</strong></div>
-          <div class="summary-row"><span>Data & Hora</span><strong id="sum-datetime">—</strong></div>
-          <div class="summary-row"><span>Duração</span><strong id="sum-dur">—</strong></div>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btnSubmit">
-          <span class="btn-text">Confirmar Agendamento</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-
-      </form>
-    </section>
-
-    <!-- RIGHT: APPOINTMENTS -->
-    <section class="panel panel-list" aria-label="Lista de agendamentos">
-      <div class="panel-header">
-        <p class="panel-eyebrow">Agenda do dia</p>
-        <h2 class="panel-title">Agendamentos</h2>
-        <div class="list-controls">
-          <input class="search-input" type="text" id="searchInput" placeholder="🔍  Buscar cliente…" />
-          <select class="filter-select" id="filterBarber">
-            <option value="">Todos os barbeiros</option>
-            <option value="Carlos">Carlos</option>
-            <option value="Diego">Diego</option>
-            <option value="Fábio">Fábio</option>
-          </select>
         </div>
       </div>
 
-      <div class="list-meta" id="listMeta">
-        <span id="listCount">0 agendamentos</span>
-        <button class="btn-clear-all" id="btnClearAll" style="display:none">Limpar todos</button>
-      </div>
-
-      <div class="appointments-list" id="appointmentsList">
-        <div class="list-empty" id="listEmpty">
-          <div class="empty-icon">📅</div>
-          <h3>Nenhum agendamento</h3>
-          <p>Os horários marcados aparecerão aqui.</p>
+      <!-- Slots -->
+      <div class="slots-wrap" style="margin-top:14px">
+        <span class="slots-label">Horários disponíveis</span>
+        <div class="slots" id="slotsContainer">
+          <span class="slots-empty">Selecione uma data para ver os horários.</span>
         </div>
       </div>
-    </section>
 
-  </main>
-
-  <!-- ===== TOAST ===== -->
-  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
-
-  <!-- ===== MODAL CONFIRM ===== -->
-  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Confirmar cancelamento">
-    <div class="modal">
-      <div class="modal-icon">🗑️</div>
-      <h3 class="modal-title">Cancelar agendamento?</h3>
-      <p class="modal-desc" id="modalDesc"></p>
-      <div class="modal-actions">
-        <button class="modal-btn modal-btn-cancel" id="modalCancel">Manter</button>
-        <button class="modal-btn modal-btn-confirm" id="modalConfirm">Sim, cancelar</button>
-      </div>
+      <button class="btn-submit" id="btnAgendar" disabled>Confirmar Agendamento</button>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- LISTA -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-icon">📋</div>
+      <div>
+        <div class="panel-title">Agendamentos</div>
+        <div class="panel-sub">Próximos atendimentos</div>
+      </div>
+      <div class="appt-count" id="apptCount">0</div>
+    </div>
+    <div id="apptContainer">
+      <div class="appt-empty" id="apptEmpty">
+        <div class="appt-empty-icon">🪑</div>
+        <p>Nenhum agendamento ainda.<br/>Reserve seu horário ao lado.</p>
+      </div>
+      <div class="appt-list" id="apptList" style="display:none"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <span>Don Navarro Barbearia</span> · Seg–Sáb 09h–19h · (35) 99800-0000
+</footer>
+
+<!-- TOASTS -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============================================================
+   DON NAVARRO — SCRIPT.JS
+   Scheduling system with LocalStorage persistence
+============================================================ */
+'use strict';
+
+/* ── SERVICES ── */
+const SERVICES = [
+  { id:'corte',    name:'Corte Clássico',   price:'R$ 40',  time:'30 min', icon:'✂️' },
+  { id:'barba',    name:'Barba Completa',   price:'R$ 35',  time:'25 min', icon:'🪒' },
+  { id:'combo',    name:'Corte + Barba',    price:'R$ 65',  time:'50 min', icon:'💈' },
+  { id:'hot',      name:'Toalha Quente',    price:'R$ 20',  time:'15 min', icon:'🔥' },
+  { id:'sobrancelha', name:'Sobrancelha',   price:'R$ 15',  time:'10 min', icon:'🌟' },
+  { id:'pezinho',  name:'Pézinho / Acabamento', price:'R$ 25', time:'15 min', icon:'✨' },
+];
+
+/* ── TIME SLOTS ── */
+const ALL_SLOTS = [
+  '09:00','09:30','10:00','10:30','11:00','11:30',
+  '13:00','13:30','14:00','14:30','15:00','15:30',
+  '16:00','16:30','17:00','17:30','18:00','18:30',
+];
+
+const STORAGE_KEY = 'donnavarro_appts';
+
+/* ── STATE ── */
+let selectedService = null;
+let selectedSlot    = null;
+let appointments    = [];
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  loadAppts();
+  buildServices();
+  setMinDate();
+  bindEvents();
+  renderAppts();
+});
+
+/* ── SERVICES ── */
+function buildServices() {
+  const grid = document.getElementById('servicesGrid');
+  grid.innerHTML = SERVICES.map(s => `
+    <button class="service-btn" data-id="${s.id}" onclick="selectService('${s.id}')">
+      <span class="svc-check">✓</span>
+      <span class="svc-icon">${s.icon}</span>
+      <span class="svc-name">${s.name}</span>
+      <span class="svc-price">${s.price}</span>
+      <span class="svc-time">${s.time}</span>
+    </button>
+  `).join('');
+}
+
+function selectService(id) {
+  selectedService = id;
+  document.querySelectorAll('.service-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.id === id);
+  });
+  validateForm();
+}
+
+/* ── DATE ── */
+function setMinDate() {
+  const today = todayISO();
+  document.getElementById('apptDate').min = today;
+  document.getElementById('apptDate').value = today;
+  buildSlots(today);
+}
+
+function bindEvents() {
+  document.getElementById('apptDate').addEventListener('change', e => {
+    selectedSlot = null;
+    document.getElementById('selectedTimeDisplay').value = '';
+    buildSlots(e.target.value);
+    validateForm();
+  });
+  document.getElementById('btnAgendar').addEventListener('click', createAppt);
+}
+
+/* ── SLOTS ── */
+function buildSlots(date) {
+  const container = document.getElementById('slotsContainer');
+  if (!date) {
+    container.innerHTML = '<span class="slots-empty">Selecione uma data.</span>';
+    return;
+  }
+
+  const booked = appointments
+    .filter(a => a.date === date)
+    .map(a => a.time);
+
+  const today     = todayISO();
+  const nowMins   = date === today ? nowMinutes() : -1;
+
+  const html = ALL_SLOTS.map(slot => {
+    const busy = booked.includes(slot) || (date === today && slotMins(slot) <= nowMins);
+    return `<div
+      class="slot ${busy ? 'slot-busy' : ''}"
+      data-slot="${slot}"
+      ${!busy ? `onclick="selectSlot('${slot}')"` : ''}
+    >${slot}</div>`;
+  }).join('');
+
+  container.innerHTML = html || '<span class="slots-empty">Sem horários para este dia.</span>';
+}
+
+function selectSlot(slot) {
+  selectedSlot = slot;
+  document.querySelectorAll('.slot').forEach(el => {
+    el.classList.toggle('slot-selected', el.dataset.slot === slot);
+  });
+  document.getElementById('selectedTimeDisplay').value = slot;
+  validateForm();
+}
+
+/* ── VALIDATE ── */
+function validateForm() {
+  const name = document.getElementById('clientName').value.trim();
+  const date = document.getElementById('apptDate').value;
+  const ok   = name.length >= 2 && selectedService && selectedSlot && date;
+  document.getElementById('btnAgendar').disabled = !ok;
+}
+
+document.getElementById('clientName').addEventListener('input', validateForm);
+
+/* ── CREATE ── */
+function createAppt() {
+  const name = document.getElementById('clientName').value.trim();
+  const date = document.getElementById('apptDate').value;
+  if (!name || !selectedService || !selectedSlot || !date) return;
+
+  // Re-check slot
+  const alreadyBooked = appointments.some(a => a.date === date && a.time === selectedSlot);
+  if (alreadyBooked) {
+    toast('error','⚠️','Horário já ocupado. Escolha outro.');
+    buildSlots(date);
+    selectedSlot = null;
+    document.getElementById('selectedTimeDisplay').value = '';
+    validateForm();
+    return;
+  }
+
+  const svc = SERVICES.find(s => s.id === selectedService);
+  const appt = {
+    id:      genId(),
+    name,
+    service: selectedService,
+    svcName: svc.name,
+    svcIcon: svc.icon,
+    price:   svc.price,
+    date,
+    time:    selectedSlot,
+    createdAt: new Date().toISOString(),
+  };
+
+  appointments.unshift(appt);
+  saveAppts();
+  renderAppts();
+  buildSlots(date);
+  toast('success','💈',`Agendado! ${fmtDate(date)} às ${selectedSlot}`);
+
+  // Reset
+  selectedSlot = null;
+  document.getElementById('selectedTimeDisplay').value = '';
+  document.getElementById('clientName').value = '';
+  validateForm();
+}
+
+/* ── CANCEL ── */
+function cancelAppt(id) {
+  const appt = appointments.find(a => a.id === id);
+  if (!appt) return;
+  appointments = appointments.filter(a => a.id !== id);
+  saveAppts();
+  renderAppts();
+  buildSlots(document.getElementById('apptDate').value);
+  toast('info','🗑️',`Agendamento de ${appt.name} cancelado.`);
+}
+
+/* ── RENDER ── */
+function renderAppts() {
+  const list  = document.getElementById('apptList');
+  const empty = document.getElementById('apptEmpty');
+  const count = document.getElementById('apptCount');
+
+  // Sort by date+time
+  const sorted = [...appointments].sort((a, b) => {
+    const da = a.date + 'T' + a.time;
+    const db = b.date + 'T' + b.time;
+    return da.localeCompare(db);
+  });
+
+  count.textContent = sorted.length;
+
+  if (sorted.length === 0) {
+    list.style.display  = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+  list.style.display  = 'flex';
+
+  list.innerHTML = sorted.map(a => `
+    <div class="appt-card" data-id="${a.id}">
+      <div class="appt-avatar">${a.name.charAt(0).toUpperCase()}</div>
+      <div class="appt-body">
+        <div class="appt-name">${escHtml(a.name)}</div>
+        <div class="appt-svc">${a.svcIcon} ${escHtml(a.svcName)}</div>
+        <div class="appt-meta">
+          <span class="appt-tag">📅 ${fmtDate(a.date)}</span>
+          <span class="appt-tag">🕐 ${a.time}</span>
+          <span class="appt-tag">💰 ${a.price}</span>
+        </div>
+      </div>
+      <button class="btn-cancel" onclick="cancelAppt('${a.id}')" title="Cancelar agendamento">✕</button>
+    </div>
+  `).join('');
+}
+
+/* ── PERSISTENCE ── */
+function loadAppts() {
+  try { appointments = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { appointments = []; }
+}
+function saveAppts() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appointments));
+}
+
+/* ── TOAST ── */
+let toastTimer;
+function toast(type, em, msg) {
+  const wrap = document.getElementById('toastWrap');
+  const el   = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span class="toast-em">${em}</span><span>${escHtml(msg)}</span>`;
+  wrap.appendChild(el);
+  setTimeout(() => {
+    el.classList.add('out');
+    el.addEventListener('animationend', () => el.remove(), { once:true });
+  }, 3200);
+}
+
+/* ── UTILS ── */
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+}
+function p2(n) { return String(n).padStart(2,'0'); }
+function nowMinutes() {
+  const d = new Date();
+  return d.getHours() * 60 + d.getMinutes();
+}
+function slotMins(slot) {
+  const [h,m] = slot.split(':').map(Number);
+  return h * 60 + m;
+}
+function fmtDate(iso) {
+  const [y,m,d] = iso.split('-').map(Number);
+  const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  return `${p2(d)} ${months[m-1]} ${y}`;
+}
+function escHtml(str = '') {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
 </body>
 </html>
